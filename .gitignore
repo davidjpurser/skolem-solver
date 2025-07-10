@@ -1,0 +1,4 @@
+.DS_Store
+*.outputdetail
+*.tmpcsv
+**/__pycache__/*

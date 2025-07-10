@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <link rel="stylesheet" href="bootstrap.min.css">
+      <link rel="stylesheet" href="style.css">
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+      <script src="bootstrap.bundle.min.js" ></script>
+      <script src="jquery.min.js"></script>
+      <title>SKOLEM Tool: Solver for the Skolem Problem on Integer LRS</title>
+   </head>
+   <body>
+      <header class="mb-4 p-3">
+         <div class="container">
+           <div class="row align-items-center">
+             <div class="col-md-4">
+               <h2 class="mb-0">SKOLEM Tool</h2>
+             </div>
+             <div class="col-md-8 text-md-end">
+               <span class="d-block fs-5" >Solver for the Skolem Problem on Integer LRS</span>
+             </div>
+           </div>
+         </div>
+      </header>
+      <div class="container">
+         <div class="row">
+            <div class="col col-md-7">
+               <h3>System Explanation  </h3>
+               <div class="explanation">
+                  <ul>
+                     <li>
+                  On the first line write the coefficients of the
+            recurrence relation, separated by spaces.
+                  </li><li>
+                  On the second line write an equal number of space-separated initial values.
+                  </li><li>
+                  The LRS must be non-degenerate, and not the zero LRS. Leapfrogging only supports simple LRS.
+                  </li>
+                  <li>
+                     Choose the algorithm(s) and option(s) you wish to run on the given LRS.
+                  </li>
+                  </ul>
+               </div>
+            </div>
+               <div class="col col-md-5 explanation">
+                  <h4>Input Format</h4>
+                  <code>
+                  a<sub>1</sub> a<sub>2</sub> ... a<sub>k</sub> <br>
+                  u<sub>0</sub> u<sub>1</sub> ... u<sub>k-1</sub> <br><br>
+       </code>
+       where:<br>
+       <code>
+       u<sub>n+k</sub> = a<sub>1</sub>&#183;u<sub>n+k-1</sub> + a<sub>2</sub>&#183;u<sub>n+k-2</sub> + ... + a<sub>k</sub>&#183;u<sub>n</sub>
+                 </code>
+          </div>
+         </div>
+         <div class="row">
+            <main class="col col-12">
+               <h3>Input area</h3>
+               <div class="mb-1" style="line-height:40px;">
+                  <span class="examples">
+<button class="example btn btn-sm btn-secondary" data="1
+0">Zero LRS</button>
+<button class="example btn btn-sm btn-secondary" data="1 -2 2
+1 1 0">Degenerate LRS</button>
+<button class="example btn btn-sm btn-secondary" data="4 -4
+1 1">Non-simple LRS</button>
+<button class="example btn btn-sm btn-primary" data="1
+1">Trivial</button>
+<button class="example btn btn-sm btn-primary" data="1 1
+0 1">Fibonacci</button>
+<button class="example btn btn-sm btn-primary" data="1 1 1 
+0 1 1">Tribonacci</button>
+<button class="example btn btn-sm btn-primary" data-togglemergesubcases="false" data="2 -4 4
+0 0 1">Berstel sequence [1]</button>
+<button class="example btn btn-sm btn-primary" data="31 -384 230 -6175 4225
+-1 1 59 961 11519">D-M sequence [3]</button>
+<button class="example btn btn-sm btn-primary" data="9 -10 522 -4745 4225
+-30 -27 0 469 1762">Order 5 [4]</button>
+<button class="example btn btn-sm btn-primary" data="6 -26 66 -130 150 -125
+0 3 11 -12 -125 -177">Order 6 [4]</button>
+<button class="example btn btn-sm btn-primary" data="6 -25 66 -120 150 -89 18 -1
+0 0 -48 -120 0 520 624 -2016">Reversible order 8 [4]</button>
+<button class="example btn btn-sm btn-primary" data="1 3 1
+0 1 1">Zero with multiplicity 2</button>
+                  </span>
+               </div>
+               LRS input:<br>
+                <textarea id="input" class="form-control" rows="6"></textarea>
+                <div id="formattedinput"></div>
+
+
+
+               <div class="form-check form-switch">
+                 <input class="form-check-input globaloptions" type="checkbox" id="switchRenderFull" name="renderfull">
+                 <label class="form-check-label" for="switchRenderFull">Always render full LRS (otherwise restricted to 400 characters)</label>
+               </div>
+
+               <div class="form-check form-switch">
+                 <input class="form-check-input globaloptions" type="checkbox" id="switchDegenerateCheck" name="skipdegeneratecheck">
+                 <label class="form-check-label"
+                 for="switchDegenerateCheck">I solemnly swear the LRS
+                 is non-degenerate (skips degeneracy check, it will
+                 timeout or break if the LRS is degenerate!)</label>
+               </div>
+
+               <div class="form-check form-switch">
+                 <input class="form-check-input globaloptions" type="checkbox" id="switchMinimisation" name="skipminimisation">
+                 <label class="form-check-label"
+                 for="switchMinimisation">I solemnly swear the LRS
+                 is minimal (skips minimality check)</label>
+               </div>
+
+
+               <div class="form-check form-switch">
+                 <input class="form-check-input globaloptions" type="checkbox" id="switchReducer" name="reducelrs">
+                 <label class="form-check-label" for="switchReducer">Use GCD reduction (reduces initial values by GCD)</label>
+               </div>
+
+
+               <div class="form-check form-switch debug dnone">
+                 <input class="form-check-input globaloptions" type="checkbox" id="switchPrint" name="print">
+                 <label class="form-check-label" for="switchPrint">Debug:print</label>
+               </div>
+               <h3>Choose Algorithm</h3>
+
+               <div class="form-check form-switch">
+                 <input class="form-check-input" type="checkbox" id="switchLeapfrogging" name="Leapfrogging" checked>
+                 <label class="form-check-label" for="switchLeapfrogging">Use leapfrogging algorithm of <a href="#ref-2">[2]</a></label>
+               </div>
+
+
+               <div class="ps-3 LeapfroggingOptions">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input optionLeapfrogging" type="checkbox" id="switchmergesubcases" name="mergesubcases">
+                    <label class="form-check-label" for="switchmergesubcases">Factor subcases (merges subcases into single linear set, sometimes requires higher modulo classes)</label>
+                  </div>
+
+
+                  <div class="form-check form-switch">
+                    <input class="form-check-input optionLeapfrogging" type="checkbox" id="switchsmallestm" name="smallestm">
+                    <label class="form-check-label" for="switchsmallestm">Find the smallest modulo (often slower)</label>
+                  </div>
+
+
+                 <div class="form-check form-switch">
+                    <input class="form-check-input optionLeapfrogging" type="checkbox" id="switchusefastjump" name="usefastjump">
+                    <label class="form-check-label" for="switchusefastjump">Use the fast jump algorithm</label>
+                  </div>
+               </div>
+
+               <div class="form-check form-switch">
+                 <input class="form-check-input" type="checkbox" id="switchBakerDavenport" name="BakerDavenport">
+                 <label class="form-check-label" for="switchBakerDavenport">Use Baker-Davenport algorithm</label>
+               </div>
+
+                 <div class="ps-3 BakerDavenportOptions">
+                  
+                  <div class="form-check form-switch">
+                    <input class="form-check-input optionBakerDavenport" type="checkbox" id="switchBoundOnly" name="boundonly">
+                    <label class="form-check-label" for="switchBoundOnly">Bound only (will not search for zeros up to the bound, if timeout try this to see if bound is very big)</label>
+                  </div>
+
+                  <div class="form-check form-switch">
+                    <input class="form-check-input optionBakerDavenport" type="checkbox" id="switchListLRS" name="listn">
+                    <label class="form-check-label" for="switchListLRS">List LRS up to bound (up to 400 unless render full LRS also chosen)</label>
+                  </div>
+
+                  <div class="form-check form-switch">
+                    <input class="form-check-input optionBakerDavenport" type="checkbox" id="switchBidirectional" name="bidirectional" checked>
+                    <label class="form-check-label" for="switchBidirectional">Search in both directions</label>
+                  </div>
+
+                  <div class="form-check form-switch">
+                    <input class="form-check-input optionBakerDavenport" type="checkbox" id="switchReverseLRS" name="reverseLRS">
+                    <label class="form-check-label" for="switchReverseLRS">Search for negative indices (note: positive will not be searched)</label>
+                  </div>
+               </div>
+
+               
+
+               
+               <button id="go" class="btn btn-success">
+               Go
+               </button>
+               <button id="clear" class="btn btn-primary dontdisable">
+               Clear
+               </button>
+               <button id="stop" class="btn btn-danger dontdisable">
+               Stop
+               </button>
+               <br>
+               <h3>Output area</h3>
+               <div class="row">
+                  <div class="col col-12 col">
+                     <div class="alert alert-info" id="info"></div>
+                  </div>
+               </div>
+               <div class="row BakerDavenportOptions" id="bdoutputrow">
+                  <div class="col col-12 col">
+
+                     <h3>Baker-Davenport result</h3>
+
+                     <div class="alert alert-danger warnings" id="BakerDavenportErrors"></div>
+                  </div>
+                  <pre class="col" id="bdoutput"></pre>
+
+               </div>
+              
+               <div class="LeapfroggingOptions">
+                  <div class="row">
+                     <div class="col col-12 col">
+                        <h3>Leapfrogging result</h3>
+                        <div class="alert alert-danger warnings" id="LeapfroggingErrors"></div>
+                     </div>
+                  </div>
+                  <div class="row" id="outputrow">
+
+                     
+                     <div class="col col-6" id="treearea">
+                        
+                     </div>
+                     <div class="col col-6" id="outputholder">
+                        <pre id="output" ></pre>
+                     </div>
+                  </div>
+               </div>
+               <br>
+            </main>
+            <footer class="col col-12">
+               <hr>
+               Tool: Implemented by <a href="http://www.davidpurser.net">David Purser</a>, and <a href="https://www.mpi-sws.org/people/jnieuwve/" >Joris Nieuwveld</a>.<br>
+               Based on work <a href="#ref-2">[2]</a> by:
+               <a href="https://www.math.u-bordeaux.fr/~ybilu/" >Yuri Bilu</a>, 
+               <a href="https://florianluca.com/" >Florian Luca</a>, 
+               <a href="https://www.mpi-sws.org/people/jnieuwve/" >Joris Nieuwveld</a>, 
+               <a href="https://people.mpi-sws.org/~joel/" >Joël Ouaknine</a>, 
+               <a href="http://www.davidpurser.net">David Purser</a> and
+               <a href="http://www.cs.ox.ac.uk/people/james.worrell/"> James Worrell</a>
+
+               <hr>
+               <h5>References</h5>
+ 
+
+<div id="ref-1">
+  [1] Only non-degenerate order 3 LRS with 6 zeros.  
+  Frits Beukers. "The zero-multiplicity of ternary recurrences."  
+  <i>Compositio Mathematica</i> 77.2 (1991): 165–177.
+</div>
+
+
+<div id="ref-2">
+  [2] Paper on which the Leapfrogging algorithm is based.  
+  Yuri Bilu, Florian Luca, Joris Nieuwveld, Joël Ouaknine, David Purser, and James Worrell.  
+  "Skolem meets Schanuel." MFCS 2022.  
+  doi:<a href="http://doi.org/10.4230/LIPIcs.MFCS.2022.20"><i>10.4230/LIPIcs.MFCS.2022.20</i></a>,  
+  arxiv:<a href="https://arxiv.org/abs/2204.13417"><i>2204.13417</i></a>.
+</div>
+
+
+
+<div id="ref-3">
+  [3] Harm Derksen and David Masser.  
+  "Linear equations over multiplicative groups, recurrences, and mixing II."  
+  <i>Indagationes Mathematicae</i> 26.1 (2015): 113–136.  
+  doi:<a href="https://doi.org/10.1016/j.indag.2014.08.002"><i>10.1016/j.indag.2014.08.002</i></a>.
+</div>
+
+
+
+<div id="ref-4">
+  [4] Sequences for which the Skolem Problem was previously open.  
+  Richard J. Lipton, Florian Luca, Joris Nieuwveld, Joël Ouaknine, David Purser, and James Worrell.  
+  "On the Skolem Problem and the Skolem Conjecture." LICS 2022.  
+  doi:<a href="https://doi.org/10.1145/3531130.3533328"><i>10.1145/3531130.3533328</i></a>.
+</div>
+
+
+
+
+                <hr>
+               <a href="https://data-protection.mpi-klsb.mpg.de/sws/skolem.mpi-sws.org">Data Protection</a> | <a href="https://imprint.mpi-klsb.mpg.de/sws/skolem.mpi-sws.org">Imprint</a>
+               <hr>
+               <br>     
+            </footer>
+         </div>
+      </div> 
+      <script type="text/javascript" src="mathjax.js"></script>
+         <script type="text/javascript" src="algorithm/leapfrogging/leap_script.js"></script>
+      <script type="text/javascript" src="algorithm/bakerdavenport/bd_script.js"></script>
+      <script type="text/javascript" src="script.js"></script>
+   </body>
+</html>
+

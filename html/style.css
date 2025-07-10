@@ -1,0 +1,52 @@
+header {
+         background-color: #5397CC;
+         padding:10px 0;
+         }  
+         textarea {
+         width: 100%;
+         font-family : monospace
+         }
+
+         #input {
+            height: 60px;
+         }
+         #outputrow {
+            min-height: 100vh;   
+         }
+         #output{
+         color: black;
+         max-height: 100vh;
+         width: 100%;
+         overflow: auto;
+         background-color: white;
+         position: sticky;
+         top: 0;
+         white-space: pre-wrap;
+         }
+         .warnings, #info{
+            display: none;
+         }
+
+         #treearea > ul{
+            list-style-type: none;
+            padding-left: 0;
+         }
+
+         #treearea ul{
+            cursor: default;
+         }
+         #treearea li{
+            cursor: pointer;
+         }
+         .dnone {
+            display: none;
+         }
+           .highlighted-ref {
+             animation: highlightFade 2s ease-in-out;
+             background-color: #ffffcc;
+           }
+
+           @keyframes highlightFade {
+             from { background-color: #ffffcc; }
+             to { background-color: transparent; }
+           }

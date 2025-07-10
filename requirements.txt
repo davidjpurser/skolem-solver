@@ -1,0 +1,3 @@
+git+https://github.com/PhilippNuspl/rec_sequences.git
+flask
+gunicorn
