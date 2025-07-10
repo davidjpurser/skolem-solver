@@ -7,6 +7,8 @@ The code is made available under the GNU Affero General Public License.
 
 Paper on which the Leapfrogging algorithm is based. Yuri Bilu, Florian Luca, Joris Nieuwveld, Joël Ouaknine, David Purser, and James Worrell. "Skolem meets Schanuel." MFCS 2022. [doi:10.4230/LIPIcs.MFCS.2022.20](http://doi.org/10.4230/LIPIcs.MFCS.2022.20), [arxiv:2204.13417](https://arxiv.org/abs/2204.13417). 
 
+[![DOI](https://zenodo.org/badge/1017415732.svg)](https://doi.org/10.5281/zenodo.15858619)
+
 # Guide
 
 This guide is aimed at using the tool, for developing and deploying the tool, see [here](developing.md)
