@@ -9,6 +9,12 @@ Paper on which the Leapfrogging algorithm is based. Yuri Bilu, Florian Luca, Jor
 
 [![DOI](https://zenodo.org/badge/1017415732.svg)](https://doi.org/10.5281/zenodo.15858619)
 
+# Datasets
+
+Data used in the paper: [dataset](https://github.com/davidjpurser/skolem-solver/blob/main/datasets/mfcs.tpls)
+
+Generated using generator.py.
+
 # Guide
 
 This guide is aimed at using the tool, for developing and deploying the tool, see [here](developing.md)
