@@ -8,7 +8,7 @@ authors:
     given-names: "David"
   - family-names: "Nieuwveld"
     given-names: "Joris"
-abstract: "Solver for the Skolem Problem on Integer LRS."
-license: "AGPL-3.0-only"
+abstract: "Solver for the Skolem Problem on Integer LRS. his software is the source code for https://skolem.mpi-sws.org."
+license: "AGPL-3.0-or-later"
 repository-code: "https://github.com/davidjpurser/skolem-solver"
 type: software
