@@ -1,14 +1,14 @@
-abstract: Solver for the Skolem Problem on Integer LRS
-authors:
-- family-names: Purser
-  given-names: David
-- family-names: Nieuwveld
-  given-names: Joris
 cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata from this file."
+title: "Skolem Tool"
+version: "1.1.4"
 doi: 10.5281/zenodo.15858619
-license:
-- AGPL-3.0-only
-message: If you use this software, please cite it using the metadata from this file.
-repository-code: https://github.com/davidjpurser/skolem-solver/
-title: 'Skolem Tool'
+authors:
+  - family-names: "Purser"
+    given-names: "David"
+  - family-names: "Nieuwveld"
+    given-names: "Joris"
+abstract: "Solver for the Skolem Problem on Integer LRS."
+license: "AGPL-3.0-only"
+repository-code: "https://github.com/davidjpurser/skolem-solver"
 type: software
