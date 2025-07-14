@@ -1,0 +1,17 @@
+{
+  "creators": [
+    {
+      "name": "Purser, David"
+    },
+    {
+      "name": "Nieuwveld, Joris"
+    }
+  ],
+  "description": "Solver for the Skolem Problem on Integer LRS",
+  "license": {
+    "id": [
+      "AGPL-3.0-only"
+    ]
+  },
+  "title": "Skolem Tool"
+}
